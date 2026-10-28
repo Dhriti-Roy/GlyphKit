@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://glyphkit-seven.vercel.app/sitemap.xml

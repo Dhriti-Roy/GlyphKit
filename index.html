@@ -69,6 +69,9 @@ td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;color:var
 .two div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}.two h3{margin:0 0 6px;font:400 22px var(--serif)}
 .two ul{margin:0;padding-left:18px;color:var(--mut)}.two li{margin:4px 0}
 .lead{color:var(--mut);max-width:640px;margin:0 0 12px}
+.gx{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:30px}.gx a{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer}.gx a:hover{border-color:var(--acc)}.gx small{font:500 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}.gx b{display:block;font:400 22px/1.15 var(--serif);margin:4px 0}.gx span{color:var(--mut);font-size:13px}
+.g{max-width:720px;margin:0 0 42px;padding-top:6px}.g h3{font:400 30px/1.1 var(--serif);margin:0 0 4px}.g .m{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:0 0 12px}.g h4{margin:18px 0 4px;font-size:15px}.g p,.g li{color:var(--mut)}.g li{margin:4px 0}.g .k{background:var(--soft);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:10px 14px;margin:14px 0;color:var(--ink)}
+tr[data-sty] td:nth-child(2){font-size:20px;color:var(--ink)}
 details{border-bottom:1px solid var(--line);padding:10px 0}summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between}
 summary::after{content:"+";color:var(--acc);font-size:18px;line-height:1}details[open] summary::after{content:"–"}
 details p{margin:8px 0 2px;color:var(--mut);max-width:680px}
@@ -78,7 +81,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding:6px 0 34px;font-
 </head>
 <body>
 <header><div class="w"><div class="logo">Glyph<i>Kit</i></div>
-<nav><a data-go="how">How it works</a><a data-go="faq">FAQ</a><a data-go="legal">Legal</a><button class="mode" id="th" aria-label="Toggle light and dark theme">Light / Dark</button></nav></div></header>
+<nav><a data-go="how">How it works</a><a data-go="guides">Guides</a><a data-go="faq">FAQ</a><a data-go="legal">Legal</a><button class="mode" id="th" aria-label="Toggle light and dark theme">Light / Dark</button></nav></div></header>
 
 <main class="w">
 <div class="eye">Free · Private · Runs in your browser</div>
@@ -130,6 +133,33 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding:6px 0 34px;font-
 <p class="lead">These aren’t fonts. They’re separate Unicode characters that look like bold or script letters, which is why they survive copy and paste, and why a screen reader may spell them out one by one.</p>
 <div class="two"><div><h3>Do</h3><ul><li>Style one phrase, not the whole post.</li><li>Keep links, numbers and search keywords in plain text.</li><li>Check the counter before you post.</li></ul></div>
 <div><h3>Don’t</h3><ul><li>Style anything people must be able to read aloud.</li><li>Expect Hindi or accented letters to change; only A–Z and 0–9 convert.</li><li>Mix more than two styles.</li></ul></div></div></section>
+
+<section class="c" id="guides"><h2>Guides</h2>
+<p class="lead">The short version of what’s happening under the hood, what it means for readers who use assistive technology, and how to format posts that people actually finish.</p>
+<div class="gx"><a data-go="g1"><small>Guide 01 · 4 min</small><b>How Unicode text generators work</b><span>Code points, look-alike alphabets and why paste works.</span></a><a data-go="g2"><small>Guide 02 · 4 min</small><b>How screen readers read styled text</b><span>What gets announced, and what to keep plain.</span></a><a data-go="g3"><small>Guide 03 · 3 min</small><b>Social media formatting that works</b><span>Hooks, spacing and the one-bold-phrase rule.</span></a></div>
+
+<article class="g" id="g1"><h3>How Unicode text generators work</h3><p class="m">Guide 01 · Under the hood</p>
+<p>A “font generator” doesn’t change fonts at all. Every character on your screen is a number in the Unicode standard, called a code point. The capital letter A is U+0041. Unicode also contains whole alphabets designed for mathematics, where a bold A, an italic A and a script A each have their own code point. A generator simply swaps every plain letter for its look-alike.</p>
+<div class="tw"><table><tr><th>Style</th><th>Letter</th><th>Code point</th></tr>
+<tr data-sty="-1"><td>Plain</td><td></td><td></td></tr><tr data-sty="0"><td>Bold</td><td></td><td></td></tr><tr data-sty="1"><td>Italic</td><td></td><td></td></tr><tr data-sty="7"><td>Script</td><td></td><td></td></tr><tr data-sty="9"><td>Fraktur</td><td></td><td></td></tr><tr data-sty="10"><td>Double-struck</td><td></td><td></td></tr><tr data-sty="11"><td>Monospace</td><td></td><td></td></tr></table></div>
+<h4>Why it survives copy and paste</h4><p>Platforms store text as a sequence of characters, not as formatting. A styled letter is just a different character, so it travels anywhere text does. Real bold in a word processor is formatting attached to the text, and it disappears the moment a platform strips it out.</p>
+<h4>The quirks</h4><ul><li>Some italic, script and fraktur letters were assigned in other parts of Unicode first, so generators borrow them from there. The italic “h” is one example.</li><li>Underline and strikethrough use combining marks that attach to the letter before them.</li><li>Characters above U+FFFF are stored as two units in some systems, so certain platforms count them as two characters.</li><li>Only A–Z and 0–9 have look-alikes, which is why Hindi, accented letters and most punctuation stay as they are.</li></ul>
+<div class="k">Think of styled text as decoration built from characters, not as formatting.</div></article>
+
+<article class="g" id="g2"><h3>How screen readers read styled text</h3><p class="m">Guide 02 · Accessibility</p>
+<p>A screen reader turns text into speech one character at a time. A styled letter is a different character from the plain one, so what you hear depends on the software, the voice and the listener’s settings. You may hear each letter announced by its Unicode name, such as “mathematical bold capital A”. You may hear nothing for characters the voice doesn’t support, or a mix of both. Plain words in the same sentence are read normally, so a post can sound fine in one place and unintelligible in another. Behaviour differs between VoiceOver, TalkBack, NVDA and JAWS, so test if accessibility matters to you.</p>
+<h4>Beyond speech</h4><p>Search, browser translation and text-to-speech tools can all treat a styled word as something different from the plain word. A styled phrase may not match when someone searches for it.</p>
+<h4>Practical rules</h4><ul><li>Keep essential information plain: dates, prices, links and calls to action.</li><li>Style a few words, never whole paragraphs.</li><li>Leave hashtags and @mentions plain. Styled ones may not link or be indexed.</li><li>Write multi-word hashtags in CamelCase, like #SocialMediaTips, so they are read as words.</li><li>Go easy on emoji. Each one may be read aloud in words, so a row of six becomes six interruptions.</li></ul>
+<div class="k">If a sentence matters, leave it plain.</div></article>
+
+<article class="g" id="g3"><h3>Social media formatting that works</h3><p class="m">Guide 03 · Best practices</p>
+<h4>Lead with the hook</h4><p>LinkedIn shows roughly the first 210 characters before “…more”, and Instagram roughly 125. Platforms change these limits, but the preview panel above shows where the fold falls for your text. Put the promise or the surprise before it.</p>
+<h4>Give it air</h4><p>Short paragraphs with a blank line between them read faster on a phone. Instagram tends to collapse blank lines, so run the text through “Instagram breaks” in the Clean tools.</p>
+<h4>Style the signal, not the sentence</h4><p>One bold phrase per post does more than five. Use it for the hook or the single takeaway, and use bullets or numbered lines for lists.</p>
+<h4>Keep discoverability plain</h4><p>Handles, keywords and hashtags work best as normal text. If you style your display name, keep your real name and main keywords in the bio in plain text.</p>
+<h4>Check it on a phone</h4><p>Many people read on a small screen, and some devices show empty boxes for rarer symbols. Paste your post into the app, look at it, then publish. Bold and italic are the safest styles.</p>
+<div class="k">One hook, one bold phrase, plenty of air.</div></article>
+</section>
 
 <section class="c" id="faq"><h2>Questions</h2>
 <details><summary>Is it really free?</summary><p>Yes. No sign-up, no limits, no watermark.</p></details>
@@ -211,10 +241,7 @@ $('#tr').onclick=()=>{if(!ta.value.trim())return toast('Enter some text first');
 [['Plain',s=>s],['Bold',styles[0][1]],['Script',styles[7][1]],['Monospace',styles[11][1]]].forEach(([n,f])=>{const d=document.createElement('div');d.innerHTML='<small></small><span></span>';d.firstChild.textContent=n;d.lastChild.textContent=f('Launching something new today');$('#dm').appendChild(d)});
 document.querySelectorAll('[data-go]').forEach(a=>a.onclick=()=>{const e=document.getElementById(a.dataset.go);if(a.dataset.go==='legal')e.querySelector('details').open=true;e.scrollIntoView({behavior:'smooth'})});
 $('#th').onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark';try{localStorage.setItem('gk-theme',r.dataset.theme)}catch(e){}};
-document.documentElement.dataset.theme = 'light';
-try {
-  localStorage.setItem('gk-theme', 'light');
-} catch (e) {}
+try{const s=localStorage.getItem('gk-theme');if(s)document.documentElement.dataset.theme=s}catch(e){}
 $('#tb-b').onclick=()=>applySel(sty(0));$('#tb-i').onclick=()=>applySel(sty(1));$('#tb-u').onclick=()=>applySel(sty(18));
 [['plain','Plain text (reset)'],...styles.map(([n],i)=>[i,n])].forEach(([i,n])=>{const o=document.createElement('option');o.value=i;o.textContent=n;$('#tb-f').appendChild(o)});
 $('#tb-f').onchange=e=>{if(e.target.value!==''){applySel(e.target.value==='plain'?plain:sty(+e.target.value));e.target.value=''}};
@@ -223,6 +250,7 @@ $('#tb-e').onclick=()=>$('#em').classList.toggle('on');
 function scope(){const s=ta.selectionStart,e=ta.selectionEnd,c=$('#scope'),on=s!==e;c.textContent=on?`Selection · ${Array.from(ta.value.slice(s,e)).length} chars`:'Applies to: all text';c.style.borderColor=on?'var(--acc)':'';c.style.color=on?'var(--acc)':''}
 ['select','keyup','mouseup','touchend','input','focus'].forEach(v=>ta.addEventListener(v,scope));document.addEventListener('selectionchange',()=>{if(document.activeElement===ta)scope()});
 {const r0=render;render=()=>{r0();scope()}}
+document.querySelectorAll('tr[data-sty]').forEach(r=>{const i=+r.dataset.sty,g=i<0?'A':styles[i][1]('A');r.cells[1].textContent=g;r.cells[2].textContent='U+'+g.codePointAt(0).toString(16).toUpperCase().padStart(4,'0')});
 render();
 </script>
 </body>
